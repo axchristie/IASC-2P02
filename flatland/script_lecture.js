@@ -37,10 +37,13 @@ const renderer = new THREE.WebGLRenderer({
     canvas: canvas
 })
 renderer.setSize(sizes.width, sizes.height)
+renderer.localClippingEnabled = false
 
 /***********
 ** MESHES **
 ************/
+// Clipping plane
+const clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
 // Plane
 const planeGeometry = new THREE.PlaneGeometry(10, 10, 50, 50)
 const planeMaterial = new THREE.MeshBasicMaterial({
@@ -53,17 +56,20 @@ const plane = new THREE.Mesh(planeGeometry, planeMaterial)
 plane.rotation.x = Math.PI * 0.5
 scene.add(plane)
 
-// testSphere
-const geometry = new THREE.SphereGeometry(1)
-const material = new THREE.MeshNormalMaterial()
-const testSphere = new THREE.Mesh(geometry, material)
+// Torus
+const geometry = new THREE.TorusGeometry(2, 0.5)
+const material = new THREE.MeshNormalMaterial({
+    clippingPlanes: [ clippingPlane ]
+})
+const torus = new THREE.Mesh(geometry, material)
 
-scene.add(testSphere)
+scene.add(torus)
 
 /************* 
 ** CONTROLS **
 *************/
 const controls = new OrbitControls(camera, canvas)
+controls.enableDamping = true
 
 /*******
 ** UI **
@@ -73,28 +79,85 @@ const ui = new dat.GUI()
 
 // UI Objects
 /* TAKE ONE */
-const uiObject = {}
-uiObject.play = false
+const uiObject = {
+    play: false,
+    rotate: false,
+    speed: 0.5,
+    distance: 2,
+    rotationSpeed: 1,
+}
+
+uiObject.reset = () =>
+{
+    uiObject.play = false
+    uiObject.rotate = false
+    uiObject.speed = 0.5
+    uiObject.distance = 2
+    uiObject.rotationSpeed = 1
+}
 
 // Plane UI
 const planeFolder = ui.addFolder('Plane')
 
 planeFolder
     .add(planeMaterial, 'wireframe')
+    .name('Wireframe')
 
-// testSphere UI
-const sphereFolder = ui.addFolder('Sphere')
+planeFolder
+    .add(renderer, 'localClippingEnabled')
+    .name('Clip traveler')
 
-sphereFolder
-    .add(uiObject, 'play')
-    .name('Animate sphere')
+// Rotation Folder
+const rotationFolder = ui.addFolder('Traveler Rotation')
 
-sphereFolder
-    .add(testSphere.position, 'y')
-    .min(-5)
-    .max(5)
+rotationFolder
+    .add(uiObject, 'rotationSpeed')
+    .min(0.1)
+    .max(10)
     .step(0.1)
-    .name('Height')
+    .name('Rotation Speed')
+    .listen()
+
+
+ rotationFolder
+    .add(uiObject, 'rotate')
+    .name('Rotate traveler')
+    .listen()
+
+
+// Travel Folder
+const travelFolder = ui.addFolder('Traveler Journey')
+
+travelFolder
+    .add(uiObject, 'speed')
+    .min(0.1)
+    .max(10)
+    .step(0.1)
+    .name('Travel Speed')
+    .listen()
+
+
+travelFolder
+    .add(uiObject, 'distance')
+    .min(0.1)
+    .max(10)
+    .step(0.5)
+    .name('Travel Distance')
+    .listen()
+
+
+travelFolder
+    .add(uiObject, 'play')
+    .name('Move traveler')
+    .listen()
+
+// Reset Folder
+const resetFolder = ui.addFolder('Reset')
+
+resetFolder
+    .add(uiObject, 'reset')
+    .name('Reset Traveler')
+
 
 /*******************
 ** ANIMATION LOOP **
@@ -113,7 +176,13 @@ const animation = () =>
     //console.log(uiObject.play)
     if(uiObject.play)
     {
-        testSphere.position.y = Math.sin(elapsedTime * 0.5) * 2
+        torus.position.y = Math.sin(elapsedTime * uiObject.speed) * uiObject.distance
+    }
+
+    if(uiObject.rotate)
+    {
+        torus.rotation.x = elapsedTime * uiObject.rotationSpeed
+        torus.rotation.y = elapsedTime * uiObject.rotationSpeed
     }
 
     // Controls
