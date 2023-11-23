@@ -1,22 +1,21 @@
 body {
     background-color: gray;
     color: white;
+    width: fit-content;
+    margin: 0 auto;
+    text-align: left;
 }
 
 h1 {
     font-size: 36px;
-    text-align: center;
 }
 
 h2 {
     font-size: 28px;
-    text-align: center;
 }
 
 ol {
     font-size: 24px;
-    width: fit-content;
-    margin: 0 auto;
 }
 
 a {
