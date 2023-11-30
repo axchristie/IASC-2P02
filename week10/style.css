@@ -1,0 +1,41 @@
+body {
+    margin: 0 auto;
+}
+
+h1 {
+    color: black;
+    font-size: 48px;
+    text-align: center;
+    text-shadow: 2px 2px 4px #ffffff;
+}
+
+ul {
+    width: 100%;
+    text-align: center;
+}
+
+li {
+    display: inline-block;
+    font-size: 24px;
+    margin-right: 24px;
+}
+
+#red {
+    color: red;
+}
+
+#green {
+    color: green;
+}
+
+#blue {
+    color: blue;
+}
+
+.webgl {
+    position: fixed;
+    top: 0;
+    left: 0;
+    outline: none;
+    z-index: -1;
+}
