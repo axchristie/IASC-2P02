@@ -75,8 +75,6 @@ const drawCube = (i, material) =>
     scene.add(cube)
 }
 
-drawCube(0, redMaterial)
-
 /**********************
 ** UI & TEXT PARSERS **
 ***********************/
@@ -85,8 +83,61 @@ let preset = {}
 
 const uiobj = {
     text: '',
-    textArray: ''
+    textArray: [],
+    term1: 'cupboard',
+    term2: 'hat',
+    term3: 'broom',
+    reveal() {
+        preset = ui.save()
+        //console.log(uiobj.term1, uiobj.term2, uiobj.term3)
+        // Parse Text and Terms
+        parseTextandTerms()
+
+        // Hide termsFolder ui
+        termsFolder.hide()
+
+        // Show cubesFolder ui
+        cubesFolder.show()
+    }
 }
+
+// ui
+const ui = new dat.GUI()
+
+// Terms Folder
+const termsFolder = ui.addFolder('Enter Terms')
+
+termsFolder
+    .add(uiobj, 'term1')
+    .name('Red Term')
+
+termsFolder
+    .add(uiobj, 'term2')
+    .name('Green Term')
+
+termsFolder
+    .add(uiobj, 'term3')
+    .name('Blue Term')
+
+termsFolder
+    .add(uiobj, 'reveal')
+    .name('Reveal')
+
+// Cubes Folder
+const cubesFolder = ui.addFolder('Filter Terms')
+cubesFolder.hide()
+
+cubesFolder
+    .add(redMaterial, 'visible')
+    .name('Red - ' + `${uiobj.term1}`)
+
+cubesFolder
+    .add(greenMaterial, 'visible')
+    .name('Green - ' + `${uiobj.term2}`)
+
+cubesFolder
+    .add(blueMaterial, 'visible')
+    .name('Blue - ' + `${uiobj.term3}`)
 
 // Text Parsers
 // Load source text
@@ -95,7 +146,6 @@ fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Ro
     .then((data) =>
     {
         uiobj.text = data
-        parseTextandTerms()
     }
     )
 
@@ -111,13 +161,13 @@ fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Ro
         //console.log(uiobj.textArray)
 
         // Find term 1 - red
-        findTermInParsedText("cupboard", redMaterial)
+        findTermInParsedText(uiobj.term1, redMaterial)
 
         // Find term 2 - green
-        findTermInParsedText("hat", greenMaterial)
+        findTermInParsedText(uiobj.term2, greenMaterial)
 
         // Find term 3 - blue
-        findTermInParsedText("broom", blueMaterial)
+        findTermInParsedText(uiobj.term3, blueMaterial)
     }
 
     // Find term in tokenized text
