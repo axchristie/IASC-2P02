@@ -87,6 +87,7 @@ const uiobj = {
     term1: 'cupboard',
     term2: 'hat',
     term3: 'broom',
+    rotateCamera: false,
     reveal() {
         preset = ui.save()
         //console.log(uiobj.term1, uiobj.term2, uiobj.term3)
@@ -98,6 +99,9 @@ const uiobj = {
 
         // Show cubesFolder ui
         cubesFolder.show()
+
+        // Show cameraFolder ui
+        cameraFolder.show()
     }
 }
 
@@ -138,6 +142,15 @@ cubesFolder
 cubesFolder
     .add(blueMaterial, 'visible')
     .name('Blue - ' + `${uiobj.term3}`)
+
+// Camera Folder
+
+const cameraFolder = ui.addFolder('Camera')
+cameraFolder.hide()
+
+cameraFolder
+    .add(uiobj, 'rotateCamera')
+    .name('Rotate Camera')
 
 // Text Parsers
 // Load source text
@@ -208,6 +221,13 @@ const animation = () =>
 
     // Orbit Controls
     controls.update()
+
+    // Camera rotation
+    if(uiobj.rotateCamera)
+    {
+        camera.position.x = Math.sin(elapsedTime * 0.2) * 16
+        camera.position.z = Math.cos(elapsedTime * 0.2) * 16
+    }
 
     // Renderer
     renderer.render(scene, camera)
