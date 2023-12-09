@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<head>
+    <title>Data Visualization Assignment</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- three.js importmap -->
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://ga.jspm.io/npm:three@0.158.0/build/three.module.js",
+            "OrbitControls": "https://ga.jspm.io/npm:three@0.158.0/examples/jsm/controls/OrbitControls.js",
+            "lil-gui": "https://ga.jspm.io/npm:lil-gui@0.19.1/dist/lil-gui.esm.js"
+        }
+    }
+    </script>
+
+    <!-- dataviz 1 -->
+    <script src="script.js" type="module"></script>
+    <!-- dataviz 2 -->
+    <script src="script2.js" type="module"></script>
+</head>
+<body>
+    <h1>My Awesome Title</h1>
+    <h2>Alex Christie</h2>
+
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus imperdiet orci quis nibh fringilla molestie. Nam orci nulla, tristique ut pharetra quis, porttitor nec dui. Morbi vitae eros ac sapien iaculis facilisis fringilla ac mi. Vestibulum pellentesque neque dictum fringilla congue. Donec fermentum nec elit vitae vestibulum. Praesent gravida tortor diam, eget interdum odio pharetra sit amet. Praesent et auctor sapien. Aliquam placerat diam vel odio tincidunt, at pulvinar diam blandit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus rutrum pretium massa, et efficitur odio. Aliquam in erat volutpat, tempor massa quis, pulvinar eros. Proin id mauris ut mi dignissim tincidunt.</p>
+
+    <p>Praesent fermentum consectetur leo ac aliquam. Fusce vitae purus eu purus placerat fringilla eu ut lacus. Donec mollis suscipit arcu, a fringilla arcu. Sed aliquet turpis eu eleifend dapibus. Etiam augue tortor, egestas ut euismod et, aliquam vel lacus. Donec lobortis, urna eget ultricies gravida, lectus urna facilisis diam, laoreet congue tellus neque sed quam. Nullam at dignissim nisl, non commodo nibh. Nullam et metus nec mauris dapibus tincidunt eu ac turpis. Phasellus condimentum hendrerit malesuada. Sed semper diam dapibus posuere ultrices. Curabitur nunc ipsum, dignissim vitae interdum ac, sagittis vel mi.</p>
+
+    <!-- dataviz 1 -->
+    <div class="canvas-container">
+        <h2>Objects in Harry Potter</h2>
+        <canvas class="webgl"></canvas>
+        <p>Left click and drag to rotate. Right click and drag to move. Scroll to zoom.</p>
+        <ul>
+            <li id="red">Cupboard</li>
+            <li id="green">Hat</li>
+            <li id="blue">Broom</li>
+        </ul>
+    </div>
+
+    <p>Fusce semper molestie turpis, imperdiet dictum nunc mattis ut. Curabitur hendrerit varius massa, non luctus enim gravida id. Pellentesque sapien dolor, pellentesque eu elementum sollicitudin, rhoncus sed velit. In viverra, est quis dignissim ornare, mi ligula feugiat justo, vitae porttitor libero metus non augue. Maecenas suscipit gravida tellus, ut maximus arcu mollis blandit. Sed dignissim metus sapien, et venenatis sem varius non. Morbi et dapibus ante. Sed ac sapien placerat, pulvinar ipsum eget, mattis tortor. Nam magna nibh, mattis ut odio eu, accumsan fermentum dui. Praesent tempor mi a nulla ornare elementum. Ut feugiat libero nibh, a tristique nisl cursus ut. Donec maximus dui viverra luctus tempus.</p>
+
+    <p>Integer non facilisis magna. Ut feugiat quam vel mollis tristique. Maecenas diam nulla, aliquet sed tempus et, semper nec ipsum. Cras tincidunt tincidunt metus, sit amet hendrerit leo pulvinar in. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed posuere ligula leo, et interdum ligula vulputate sed. Mauris elementum euismod lectus imperdiet feugiat. Suspendisse pretium ex mauris, placerat convallis erat pellentesque id. Duis hendrerit purus vitae ligula congue, placerat convallis ligula interdum. Praesent semper erat ac sagittis lobortis. Phasellus metus justo, accumsan vel suscipit non, consectetur et ex. Curabitur efficitur velit in nisi blandit, et suscipit massa dignissim. Maecenas suscipit massa tortor, id cursus neque tempus id.</p>
+
+    <!-- dataviz 2-->
+    <div class="canvas-container">
+        <h2>Blah in Harry Potter</h2>
+        <canvas class="webgl2"></canvas>
+        <p>Left click and drag to rotate. Right click and drag to move. Scroll to zoom.</p>
+        <ul>
+            <li id="red">1</li>
+            <li id="green">2</li>
+            <li id="blue">3</li>
+        </ul>
+    </div>
+
+    <p>Donec ac velit est. Nunc vulputate diam ut lorem consectetur, eget ornare arcu consequat. Vivamus sed iaculis ante. Aliquam a mi quis sem luctus iaculis. In ac ligula et nisi consequat euismod id imperdiet ligula. Sed tortor nisi, placerat id nisl eu, facilisis posuere diam. Etiam et blandit sem. Suspendisse nunc nisl, vulputate quis convallis id, ornare at mi. Integer pellentesque venenatis aliquet. Vivamus aliquet feugiat est non porta. Donec imperdiet augue a ipsum semper pharetra.</p>
+
+</body>

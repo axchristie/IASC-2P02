@@ -7,9 +7,9 @@ import { OrbitControls } from "OrbitControls"
 ***********/
 // Sizes
 const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    aspectRatio: window.innerWidth / window.innerHeight
+    width: window.innerWidth / 2.5,
+    height: window.innerWidth / 2.5,
+    aspectRatio: 1
 }
 
 /**********
@@ -20,7 +20,7 @@ const canvas = document.querySelector('.webgl')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('white')
+scene.background = new THREE.Color('gray')
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
@@ -108,6 +108,7 @@ const uiobj = {
     }
 }
 
+/*
 // ui
 const ui = new dat.GUI()
 
@@ -158,17 +159,9 @@ cameraFolder.hide()
 cameraFolder
     .add(uiobj, 'rotateCamera')
     .name('Rotate Camera')
+*/
 
 // Text Parsers
-// Load source text
-fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Rowling%20-%20Harry%20Potter%201%20-%20Sorcerer's%20Stone.txt")
-    .then(response => response.text())
-    .then((data) =>
-    {
-        uiobj.text = data
-    }
-    )
-
     // Parse and Tokenize Text
     const parseTextandTerms = () =>
     {
@@ -213,6 +206,16 @@ fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Ro
             }
         }
     }
+
+    // Load source text
+    fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Rowling%20-%20Harry%20Potter%201%20-%20Sorcerer's%20Stone.txt")
+        .then(response => response.text())
+        .then((data) =>
+        {
+            uiobj.text = data
+            parseTextandTerms()
+        }
+        )
 
 /*******************
 ** ANIMATION LOOP **

@@ -7,20 +7,20 @@ import { OrbitControls } from "OrbitControls"
 ***********/
 // Sizes
 const sizes = {
-    width: window.innerWidth,
-    height: window.innerHeight,
-    aspectRatio: window.innerWidth / window.innerHeight
+    width: window.innerWidth / 2.5,
+    height: window.innerWidth / 2.5,
+    aspectRatio: 1
 }
 
 /**********
 ** SCENE **
 ***********/
 // Canvas
-const canvas = document.querySelector('.webgl')
+const canvas = document.querySelector('.webgl2')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('white')
+scene.background = new THREE.Color('orange')
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
@@ -54,7 +54,7 @@ scene.add(directionalLight)
 ** MESHES **
 ************/
 // Cube Geometry
-const cubeGeometry = new THREE.BoxGeometry(0.5, 0.5, 0.5)
+const cubeGeometry = new THREE.SphereGeometry(0.5)
 
 // Cube Materials
 const redMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('red') })
@@ -108,6 +108,7 @@ const uiobj = {
     }
 }
 
+/*
 // ui
 const ui = new dat.GUI()
 
@@ -158,17 +159,9 @@ cameraFolder.hide()
 cameraFolder
     .add(uiobj, 'rotateCamera')
     .name('Rotate Camera')
+*/
 
 // Text Parsers
-// Load source text
-fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Rowling%20-%20Harry%20Potter%201%20-%20Sorcerer's%20Stone.txt")
-    .then(response => response.text())
-    .then((data) =>
-    {
-        uiobj.text = data
-    }
-    )
-
     // Parse and Tokenize Text
     const parseTextandTerms = () =>
     {
@@ -213,6 +206,16 @@ fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Ro
             }
         }
     }
+
+    // Load source text
+    fetch("https://raw.githubusercontent.com/amephraim/nlp/master/texts/J.%20K.%20Rowling%20-%20Harry%20Potter%201%20-%20Sorcerer's%20Stone.txt")
+        .then(response => response.text())
+        .then((data) =>
+        {
+            uiobj.text = data
+            parseTextandTerms()
+        }
+        )
 
 /*******************
 ** ANIMATION LOOP **
