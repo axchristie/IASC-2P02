@@ -32,12 +32,8 @@ h2 {
     font-size: 16px;
 }
 
-.webgl {
-    border-radius: 10px;
-}
-
-.webgl2 {
-    border-radius: 10px;
+canvas {
+    border-radius: 10px 10px 0px 0px;
 }
 
 /* Canvas Legend */
@@ -45,7 +41,8 @@ ul > li {
     display: inline-block;
     margin-right: 5%;
     margin-top: 1%;
-    font-size: 36px;
+    font-size: 24px;
+    margin-top: 0px;
 }
 
 #red {
@@ -58,4 +55,22 @@ ul > li {
 
 #blue {
     color: blue;
+}
+
+#orange {
+    color: orange;
+}
+
+#pink {
+    color: pink;
+}
+
+#aqua {
+    color: aqua;
+}
+
+.lil-gui.root {
+    width: 50%;
+    border-radius: 10px;
+    margin-left: 25%;
 }

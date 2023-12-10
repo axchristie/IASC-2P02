@@ -108,9 +108,13 @@ const uiobj = {
     }
 }
 
-/*
+
 // ui
-const ui = new dat.GUI()
+const ui = new dat.GUI({
+    container: document.querySelector('#parent1')
+})
+
+/*
 
 // Terms Folder
 const termsFolder = ui.addFolder('Enter Terms')

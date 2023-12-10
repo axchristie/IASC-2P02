@@ -20,7 +20,7 @@ const canvas = document.querySelector('.webgl2')
 
 // Scene
 const scene = new THREE.Scene()
-scene.background = new THREE.Color('orange')
+scene.background = new THREE.Color('gray')
 
 // Camera
 const camera = new THREE.PerspectiveCamera(
@@ -57,9 +57,9 @@ scene.add(directionalLight)
 const cubeGeometry = new THREE.SphereGeometry(0.5)
 
 // Cube Materials
-const redMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('red') })
-const greenMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('green') })
-const blueMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('blue') })
+const orangeMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('orange') })
+const pinkMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('pink') })
+const aquaMaterial = new THREE.MeshStandardMaterial({ color: new THREE.Color('aqua') })
 
 const drawCube = (i, material) =>
 {
@@ -86,9 +86,9 @@ let preset = {}
 const uiobj = {
     text: '',
     textArray: [],
-    term1: 'cupboard',
-    term2: 'hat',
-    term3: 'broom',
+    term1: 'dudley',
+    term2: 'snape',
+    term3: 'malfoy',
     rotateCamera: false,
     rotateCubes: false,
     reveal() {
@@ -108,10 +108,14 @@ const uiobj = {
     }
 }
 
-/*
-// ui
-const ui = new dat.GUI()
 
+// ui
+const ui = new dat.GUI({
+    container: document.querySelector('#parent2')
+})
+
+
+/*
 // Terms Folder
 const termsFolder = ui.addFolder('Enter Terms')
 
@@ -174,13 +178,13 @@ cameraFolder
         //console.log(uiobj.textArray)
 
         // Find term 1 - red
-        findTermInParsedText(uiobj.term1, redMaterial)
+        findTermInParsedText(uiobj.term1, orangeMaterial)
 
         // Find term 2 - green
-        findTermInParsedText(uiobj.term2, greenMaterial)
+        findTermInParsedText(uiobj.term2, pinkMaterial)
 
         // Find term 3 - blue
-        findTermInParsedText(uiobj.term3, blueMaterial)
+        findTermInParsedText(uiobj.term3, aquaMaterial)
     }
 
     // Find term in tokenized text
