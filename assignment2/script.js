@@ -220,6 +220,8 @@ cameraFolder
         }
         )
 
+console.log(scene.children)
+
 /*******************
 ** ANIMATION LOOP **
 ********************/
