@@ -72,7 +72,7 @@ const drawCube = (i, material) =>
     cube.rotation.y = Math.random() * 2 * Math.PI
     cube.rotation.z = Math.random() * 2 * Math.PI
 
-    cube.blerg = Math.random()
+    cube.randomizer = Math.random()
 
     scene.add(cube)
 }
@@ -115,7 +115,6 @@ const ui = new dat.GUI({
 })
 
 /*
-
 // Terms Folder
 const termsFolder = ui.addFolder('Enter Terms')
 
@@ -134,22 +133,23 @@ termsFolder
 termsFolder
     .add(uiobj, 'reveal')
     .name('Reveal')
+*/
 
 // Cubes Folder
 const cubesFolder = ui.addFolder('Filter Terms')
-cubesFolder.hide()
+//cubesFolder.hide()
 
 cubesFolder
     .add(redMaterial, 'visible')
-    .name('Red - ' + `${uiobj.term1}`)
+    .name(`${uiobj.term1}`)
 
 cubesFolder
     .add(greenMaterial, 'visible')
-    .name('Green - ' + `${uiobj.term2}`)
+    .name(`${uiobj.term2}`)
 
 cubesFolder
     .add(blueMaterial, 'visible')
-    .name('Blue - ' + `${uiobj.term3}`)
+    .name(`${uiobj.term3}`)
 
 cubesFolder
     .add(uiobj, 'rotateCubes')
@@ -158,12 +158,11 @@ cubesFolder
 // Camera Folder
 
 const cameraFolder = ui.addFolder('Camera')
-cameraFolder.hide()
+//cameraFolder.hide()
 
 cameraFolder
     .add(uiobj, 'rotateCamera')
     .name('Rotate Camera')
-*/
 
 // Text Parsers
     // Parse and Tokenize Text
@@ -249,9 +248,9 @@ const animation = () =>
         {
             if(scene.children[i].type === "Mesh")
             {
-                scene.children[i].rotation.x = elapsedTime * scene.children[i].blerg
-                scene.children[i].rotation.y = elapsedTime * scene.children[i].blerg
-                scene.children[i].rotation.z = elapsedTime * scene.children[i].blerg
+                scene.children[i].rotation.x = elapsedTime * scene.children[i].randomizer
+                scene.children[i].rotation.y = elapsedTime * scene.children[i].randomizer
+                scene.children[i].rotation.z = elapsedTime * scene.children[i].randomizer
             }
         }
     }

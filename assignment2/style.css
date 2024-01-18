@@ -74,3 +74,36 @@ ul > li {
     border-radius: 10px;
     margin-left: 25%;
 }
+
+.name, .lil-gui {
+	font-size: 20px;
+	padding: 5px 5px 5px 5px;
+}
+
+.lil-gui .name {
+	font-weight: bold;
+}
+
+#lil-gui-name-1 {
+	color: red;
+}
+
+#lil-gui-name-2 {
+	color: green;
+}
+
+#lil-gui-name-3 {
+	color: blue;
+}
+
+#lil-gui-name-6 {
+	color: orange;
+}
+
+#lil-gui-name-7 {
+	color: pink;
+}
+
+#lil-gui-name-8 {
+	color: aqua;
+}

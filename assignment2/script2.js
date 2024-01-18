@@ -90,7 +90,7 @@ const uiobj = {
     term2: 'snape',
     term3: 'malfoy',
     rotateCamera: false,
-    rotateCubes: false,
+    animateBubbles: false,
     reveal() {
         preset = ui.save()
         //console.log(uiobj.term1, uiobj.term2, uiobj.term3)
@@ -134,36 +134,36 @@ termsFolder
 termsFolder
     .add(uiobj, 'reveal')
     .name('Reveal')
+*/
 
 // Cubes Folder
 const cubesFolder = ui.addFolder('Filter Terms')
-cubesFolder.hide()
+//cubesFolder.hide()
 
 cubesFolder
-    .add(redMaterial, 'visible')
-    .name('Red - ' + `${uiobj.term1}`)
+    .add(orangeMaterial, 'visible')
+    .name(`${uiobj.term1}`)
 
 cubesFolder
-    .add(greenMaterial, 'visible')
-    .name('Green - ' + `${uiobj.term2}`)
+    .add(pinkMaterial, 'visible')
+    .name(`${uiobj.term2}`)
 
 cubesFolder
-    .add(blueMaterial, 'visible')
-    .name('Blue - ' + `${uiobj.term3}`)
+    .add(aquaMaterial, 'visible')
+    .name(`${uiobj.term3}`)
 
 cubesFolder
-    .add(uiobj, 'rotateCubes')
-    .name('Rotate Cubes')
+    .add(uiobj, 'animateBubbles')
+    .name('Animate Bubbles')
 
 // Camera Folder
 
 const cameraFolder = ui.addFolder('Camera')
-cameraFolder.hide()
+//cameraFolder.hide()
 
 cameraFolder
     .add(uiobj, 'rotateCamera')
     .name('Rotate Camera')
-*/
 
 // Text Parsers
     // Parse and Tokenize Text
@@ -243,15 +243,15 @@ const animation = () =>
     }
 
     // Rotate cubes
-    if(uiobj.rotateCubes)
+    if(uiobj.animateBubbles)
     {
          for(let i = 0; i < scene.children.length; i++)
         {
             if(scene.children[i].type === "Mesh")
             {
-                scene.children[i].rotation.x = elapsedTime * scene.children[i].blerg
-                scene.children[i].rotation.y = elapsedTime * scene.children[i].blerg
-                scene.children[i].rotation.z = elapsedTime * scene.children[i].blerg
+                scene.children[i].scale.x = Math.sin(elapsedTime * scene.children[i].blerg)
+                scene.children[i].scale.y = Math.sin(elapsedTime * scene.children[i].blerg)
+                scene.children[i].scale.z = Math.sin(elapsedTime * scene.children[i].blerg)
             }
         }
     }
