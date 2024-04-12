@@ -51,7 +51,7 @@ function init() {
 	//scene.add( new THREE.HemisphereLight( 0xa5a5a5, 0x898989, 3 ))
 
 	const light = new THREE.DirectionalLight(0xffffff, 3)
-	light.position.set(0, 2, 0)
+	light.position.set(0, 5, 0)
 	light.lookAt(0, 0, 0)
 	light.castShadow = true
 	light.shadow.mapSize.set(4096, 4096)
