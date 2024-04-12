@@ -62,8 +62,16 @@ const geometry = new THREE.SphereGeometry(1)
 const material = new THREE.MeshNormalMaterial()
 const testSphere = new THREE.Mesh(geometry, material)
 
-scene.add(testSphere)
+//scene.add(testSphere)
 
+// cone
+const coneGeometry = new THREE.ConeGeometry(1.5, 3)
+const coneMaterial = new THREE.MeshNormalMaterial()
+const cone = new THREE.Mesh(coneGeometry, coneMaterial)
+
+cone.position.y = 3
+cone.rotation.x = Math.PI
+scene.add(cone)
 
 /*******
 ** UI **
@@ -75,6 +83,8 @@ const ui = new dat.GUI()
 /* TAKE ONE */
 const uiObject = {}
 uiObject.play = false
+// false is down; true is up
+uiObject.direction = false
 
 // Plane UI
 const planeFolder = ui.addFolder('Plane')
@@ -115,6 +125,26 @@ const animation = () =>
     {
         testSphere.position.y = Math.sin(elapsedTime * 0.5) * 2
     }
+
+	// Animate cone
+	if(!uiObject.direction)
+	{
+		cone.position.y -= 0.02
+		if(cone.position.y < -2 && cone.rotation.x > 0){
+			cone.rotation.x -= 0.1
+		}
+		if(cone.position.y < -3){
+			uiObject.direction = true
+		}
+	} else {
+		cone.position.y += 0.02
+		if(cone.position.y > 2 && cone.rotation.x < Math.PI){
+			cone.rotation.x += 0.1
+		}
+		if(cone.position.y > 3){
+			uiObject.direction = false
+		}
+	}
 
     // Controls
     controls.update()

@@ -43,6 +43,13 @@ const testCube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 
 scene.add(testCube)
 
+// torus
+const torusGeometry = new THREE.TorusGeometry(2, 0.2)
+const torusMaterial = new THREE.MeshNormalMaterial()
+const torus = new THREE.Mesh(torusGeometry, torusMaterial)
+
+scene.add(torus)
+
 /*******************
 ** ANIMATION LOOP **
 ********************/
@@ -78,6 +85,8 @@ const animation = () =>
         testCube.scale.y = Math.sin(elapsedTime * 0.5) * 2
         testCube.scale.z = Math.sin(elapsedTime * 0.5) * 2
 
+	// Rotate Torus
+	torus.rotation.y = elapsedTime
 
     // Renderer
     renderer.render(scene, camera)

@@ -84,7 +84,7 @@ const torusKnotMaterial = new THREE.MeshNormalMaterial()
 const torusKnot = new THREE.Mesh(torusKnotGeometry, torusKnotMaterial)
 torusKnot.position.set(6, 1.5, 0)
 torusKnot.castShadow = true
-scene.add(torusKnot)
+//scene.add(torusKnot)
 
 // SUN
 const sunGeometry = new THREE.SphereGeometry()
@@ -94,6 +94,36 @@ const sunMaterial = new THREE.MeshLambertMaterial({
 })
 const sun = new THREE.Mesh(sunGeometry, sunMaterial)
 scene.add(sun)
+
+/*****************
+ ** SMILEY FACE **
+ *****************/
+// Eyes
+const eyeGeometry = new THREE.SphereGeometry(0.4)
+const faceMaterial = new THREE.MeshNormalMaterial()
+
+const leftEye = new THREE.Mesh(eyeGeometry, faceMaterial)
+const rightEye = new THREE.Mesh(eyeGeometry, faceMaterial)
+
+leftEye.position.set(6, 2.75, 1)
+rightEye.position.set(6, 2.75, -1)
+
+leftEye.castShadow = true
+rightEye.castShadow = true
+
+scene.add(leftEye)
+scene.add(rightEye)
+
+// Mouth
+const mouthGeometry = new THREE.TorusGeometry(1.25, 0.2, 12, 48, Math.PI)
+const mouth = new THREE.Mesh(mouthGeometry, faceMaterial)
+
+mouth.position.set(6, 1, 0)
+mouth.rotation.y = Math.PI * 0.5
+
+mouth.castShadow = true
+
+scene.add(mouth)
 
 /***********
 ** LIGHTS **
@@ -169,8 +199,14 @@ const animation = () =>
 
 
     // Animate Objects
-    torusKnot.rotation.y = elapsedTime
-    torusKnot.position.z = Math.sin(elapsedTime * 0.5) * 2
+    //torusKnot.rotation.y = elapsedTime
+    //torusKnot.position.z = Math.sin(elapsedTime * 0.5) * 2
+
+	// Rotate mouth
+	mouth.rotation.z = elapsedTime + 2
+
+	// Animate sun
+	directionalLight.position.y = Math.sin(elapsedTime) + 3
 
     // Update directionalLightHelper
     //directionalLightHelper.update()
