@@ -17,6 +17,8 @@ let cube
 let controls
 
 let selected = false
+let intersected = []
+let worldGroup
 
 init()
 animate()
@@ -51,11 +53,15 @@ function init() {
 	//scene.add( new THREE.HemisphereLight( 0xa5a5a5, 0x898989, 3 ))
 
 	const light = new THREE.DirectionalLight(0xffffff, 3)
-	light.position.set(0, 2, 0)
+	light.position.set(0, 5, 0)
 	light.lookAt(0, 0, 0)
 	light.castShadow = true
 	light.shadow.mapSize.set(4096, 4096)
 	scene.add(light)
+
+	// World Group
+	worldGroup = new THREE.Group()
+	scene.add(worldGroup)
 
 	// Test Cube
 	const cubeGeometry = new THREE.BoxGeometry(0.25, 0.25, 0.25)
@@ -63,7 +69,7 @@ function init() {
 	cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 	cube.position.set(0, 1, 0.5)
 	cube.castShadow = true
-	scene.add(cube)
+	worldGroup.add(cube)
 
 	// Floor
 	const floorGeometry = new THREE.PlaneGeometry(2, 2)
@@ -85,6 +91,8 @@ function init() {
 	container.appendChild(renderer.domElement)
 
 	window.addEventListener('resize', onWindowResize)
+
+	raycaster = new THREE.Raycaster()
 
 	document.body.appendChild(XRButton.createButton( renderer, { 'optionalFeatures': [ 'depth-sensing'] } ) )
 
@@ -125,15 +133,48 @@ function animate() {
 // selectStart
 function onSelectStart(event)
 {
-	selected = true
+	//selected = true
 	//console.log(event.target)
+	const controller = event.target
+
+	const intersections = getIntersections(controller)
+
+	if(intersections.length > 0){
+		const intersection = intersections[0]
+
+		const object = intersection.object
+		object.material.wireframe = true
+		controller.attach(object)
+
+		controller.userData.selected = object
+	}
+
+	controller.userData.targetRayMode = event.data.targetRayMode
 }
 
 // selectEnd
 function onSelectEnd(event)
 {
-	selected = false
+	//selected = false
 	//console.log(event.target)
+	const controller = event.target
+
+	if(controller.userData.selected != undefined){
+		const object = controller.userData.selected
+		object.material.wireframe = false
+		worldGroup.attach(object)
+
+		controller.userData.select = undefined
+	}
+}
+
+function getIntersections(controller)
+{
+	controller.updateMatrixWorld()
+
+	raycaster.setFromXRController(controller)
+
+	return raycaster.intersectObjects(worldGroup.children, false)
 }
 
 // Render
@@ -143,13 +184,14 @@ function render() {
 
 	renderer.render(scene, camera)
 
-	//cube.position.y = (Math.sin(elapsedTime) * 0.2) + 1
 	cube.rotation.x = elapsedTime * 0.2
 	cube.rotation.y = elapsedTime * 0.2
 	cube.rotation.z = elapsedTime * 0.2
 
+	/*
 	if(selected){
-		cube.position.x = Math.sin(elapsedTime * 0.2) * 0.5
-		cube.position.z = Math.cos(elapsedTime * 0.2) * 0.5
+		cube.position.x = Math.sin(elapsedTime * 0.5) * 0.5
+		cube.position.z = Math.cos(elapsedTime * 0.5) * 0.5
 	}
+	*/
 }
