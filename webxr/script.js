@@ -149,7 +149,7 @@ function render() {
 	cube.rotation.z = elapsedTime * 0.2
 
 	if(selected){
-		cube.position.x = Math.sin(elapsedTime * 0.2) * 0.5
-		cube.position.z = Math.cos(elapsedTime * 0.2) * 0.5
+		cube.position.x = Math.sin(elapsedTime * 0.5) * 0.5
+		cube.position.z = Math.cos(elapsedTime * 0.5) * 0.5
 	}
 }
