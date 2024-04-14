@@ -74,10 +74,11 @@ function init() {
 	const cubeMaterial = new THREE.MeshNormalMaterial()
 	cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 	cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial)
-	cube.position.set(-0.5, 1, 0.5)
-	cube2.position.set(0.5, 1, 0.5)
+	cube.position.set(0, 4, 0)
+	cube2.position.set(0, 1, 0.5)
 	cube.castShadow = true
 	cube2.castShadow = true
+	cube2.receiveShadow = true
 	worldGroup.add(cube)
 	worldGroup.add(cube2)
 
@@ -132,11 +133,11 @@ function init() {
 
 // Click
 function onWindowClick() {
-	if(myObj.test <= 2) {
-		gsap.to(myObj, { test: 2, duration: 1, ease: 'elastic' })
+	if(myObj.test <= 4) {
+		gsap.to(myObj, { test: 4, duration: 3, ease: 'elastic' })
 	}
-	if(myObj.test >= 2) {
-		gsap.to(myObj, { test: 1, duration: 1, ease: 'elastic' })
+	if(myObj.test >= 4) {
+		gsap.to(myObj, { test: 0.5, duration: 3, ease: 'elastic' })
 	}
 }
 
@@ -166,7 +167,7 @@ function onSelectStart(event)
 
 		const object = intersection.object
 		//object.material.wireframe = true
-		gsap.to(myObj, { test: 2, duration: 1, ease: 'bounce' })
+		gsap.to(myObj, { test: 4, duration: 3, ease: 'bounce' })
 		controller.attach(object)
 
 		controller.userData.selected = object
@@ -185,7 +186,7 @@ function onSelectEnd(event)
 	if(controller.userData.selected != undefined){
 		const object = controller.userData.selected
 		//object.material.wireframe = false
-		gsap.to(myObj, { test: 1, duration: 1, ease: 'bounce' })
+		gsap.to(myObj, { test: 0.5, duration: 3, ease: 'bounce' })
 		worldGroup.attach(object)
 
 		controller.userData.select = undefined
@@ -212,9 +213,9 @@ function render() {
 	cube.rotation.y = elapsedTime * 0.2
 	cube.rotation.z = elapsedTime * 0.2
 	
-	cube2.rotation.x = -elapsedTime * 0.2
-	cube2.rotation.y = -elapsedTime * 0.2
-	cube2.rotation.z = -elapsedTime * 0.2
+//	cube2.rotation.x = -elapsedTime * 0.2
+//	cube2.rotation.y = -elapsedTime * 0.2
+//	cube2.rotation.z = -elapsedTime * 0.2
 	
 	cube.scale.x = myObj.test
 	cube.scale.y = myObj.test
