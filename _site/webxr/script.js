@@ -3,6 +3,7 @@ import { OrbitControls } from "OrbitControls"
 import { BoxLineGeometry } from "BoxLineGeometry"
 import { XRButton } from "XRButton"
 import { XRControllerModelFactory } from "XRControllerModelFactory"
+import gsap from "gsap"
 
 // Setup
 const clock = new THREE.Clock()
@@ -13,12 +14,17 @@ let controller1, controller2
 let controllerGrip1, controllerGrip2
 
 let room
-let cube
+let cube, cube2
 let controls
 
 let selected = false
 let intersected = []
 let worldGroup
+
+let myObj = {
+	test: 1,
+	selected: false
+}
 
 init()
 animate()
@@ -67,9 +73,13 @@ function init() {
 	const cubeGeometry = new THREE.BoxGeometry(0.25, 0.25, 0.25)
 	const cubeMaterial = new THREE.MeshNormalMaterial()
 	cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
-	cube.position.set(0, 1, 0.5)
+	cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial)
+	cube.position.set(-0.5, 1, 0.5)
+	cube2.position.set(0.5, 1, 0.5)
 	cube.castShadow = true
+	cube2.castShadow = true
 	worldGroup.add(cube)
+	worldGroup.add(cube2)
 
 	// Floor
 	const floorGeometry = new THREE.PlaneGeometry(2, 2)
@@ -91,6 +101,8 @@ function init() {
 	container.appendChild(renderer.domElement)
 
 	window.addEventListener('resize', onWindowResize)
+
+	window.addEventListener('click', onWindowClick)
 
 	raycaster = new THREE.Raycaster()
 
@@ -118,6 +130,16 @@ function init() {
 	scene.add(controllerGrip2)
 }
 
+// Click
+function onWindowClick() {
+	if(myObj.test <= 2) {
+		gsap.to(myObj, { test: 2, duration: 1, ease: 'elastic' })
+	}
+	if(myObj.test >= 2) {
+		gsap.to(myObj, { test: 1, duration: 1, ease: 'elastic' })
+	}
+}
+
 // Resize
 function onWindowResize() {
 	camera.aspect = window.innerWidth / window.innerHeight
@@ -143,7 +165,8 @@ function onSelectStart(event)
 		const intersection = intersections[0]
 
 		const object = intersection.object
-		object.material.wireframe = true
+		//object.material.wireframe = true
+		gsap.to(myObj, { test: 2, duration: 1, ease: 'bounce' })
 		controller.attach(object)
 
 		controller.userData.selected = object
@@ -161,7 +184,8 @@ function onSelectEnd(event)
 
 	if(controller.userData.selected != undefined){
 		const object = controller.userData.selected
-		object.material.wireframe = false
+		//object.material.wireframe = false
+		gsap.to(myObj, { test: 1, duration: 1, ease: 'bounce' })
 		worldGroup.attach(object)
 
 		controller.userData.select = undefined
@@ -187,6 +211,14 @@ function render() {
 	cube.rotation.x = elapsedTime * 0.2
 	cube.rotation.y = elapsedTime * 0.2
 	cube.rotation.z = elapsedTime * 0.2
+	
+	cube2.rotation.x = -elapsedTime * 0.2
+	cube2.rotation.y = -elapsedTime * 0.2
+	cube2.rotation.z = -elapsedTime * 0.2
+	
+	cube.scale.x = myObj.test
+	cube.scale.y = myObj.test
+	cube.scale.z = myObj.test
 
 	/*
 	if(selected){
