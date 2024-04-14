@@ -22,7 +22,7 @@ let intersected = []
 let worldGroup
 
 let myObj = {
-	test: 1,
+	test: 0.1,
 	selected: false
 }
 
@@ -74,8 +74,8 @@ function init() {
 	const cubeMaterial = new THREE.MeshNormalMaterial()
 	cube = new THREE.Mesh(cubeGeometry, cubeMaterial)
 	cube2 = new THREE.Mesh(cubeGeometry, cubeMaterial)
-	cube.position.set(0, 4, 0)
-	cube2.position.set(0, 1, 0.5)
+	cube.position.set(0, 1.5, 0)
+	cube2.position.set(-0.5, 1, -0.5)
 	cube.castShadow = true
 	cube2.castShadow = true
 	cube2.receiveShadow = true
@@ -133,11 +133,11 @@ function init() {
 
 // Click
 function onWindowClick() {
-	if(myObj.test <= 4) {
-		gsap.to(myObj, { test: 4, duration: 3, ease: 'elastic' })
+	if(myObj.test <= 3) {
+		gsap.to(myObj, { test: 3, duration: 3, ease: 'elastic' })
 	}
-	if(myObj.test >= 4) {
-		gsap.to(myObj, { test: 0.5, duration: 3, ease: 'elastic' })
+	if(myObj.test >= 3) {
+		gsap.to(myObj, { test: 0.1, duration: 3, ease: 'elastic' })
 	}
 }
 
@@ -167,7 +167,7 @@ function onSelectStart(event)
 
 		const object = intersection.object
 		//object.material.wireframe = true
-		gsap.to(myObj, { test: 4, duration: 3, ease: 'bounce' })
+		gsap.to(myObj, { test: 3, duration: 1, ease: 'bounce' })
 		controller.attach(object)
 
 		controller.userData.selected = object
@@ -186,7 +186,7 @@ function onSelectEnd(event)
 	if(controller.userData.selected != undefined){
 		const object = controller.userData.selected
 		//object.material.wireframe = false
-		gsap.to(myObj, { test: 0.5, duration: 3, ease: 'bounce' })
+		gsap.to(myObj, { test: 0.1, duration: 1, ease: 'bounce' })
 		worldGroup.attach(object)
 
 		controller.userData.select = undefined
